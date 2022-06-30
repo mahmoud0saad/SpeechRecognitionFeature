@@ -91,8 +91,13 @@ public class MainActivity extends AppCompatActivity {
 
     Intent getRecognizerIntent() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+
+
+        // to add  other language change to { US-en  ,  ar-EG }
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ar-EG");
+        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getClass().getPackage().getName());
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, "voice.recognition.test");
+
 
         intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 5);
         return intent;
@@ -107,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
                     showProgressBar();
                     sr.startListening(getRecognizerIntent());
                 } else {
+                    hideProgressBar();
                     Toast.makeText(MainActivity.this, "Permission Denied!", Toast.LENGTH_SHORT).show();
                 }
         }
